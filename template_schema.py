@@ -1,4 +1,4 @@
-"""Master CSV template columns and Pydantic extraction schema for Gemini."""
+"""Master CSV template columns and Pydantic extraction schema for Cursor SDK."""
 
 from __future__ import annotations
 
@@ -222,7 +222,7 @@ class LogisticsHubRecord(BaseModel):
 
 
 class ExtractionResult(BaseModel):
-    """Gemini structured-output wrapper: zero or more hub rows from one page."""
+    """Structured-output wrapper: zero or more hub rows from one page."""
 
     hubs: list[LogisticsHubRecord] = Field(
         default_factory=list,

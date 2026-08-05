@@ -28,7 +28,7 @@ app = FastAPI(
     title="India Logistics Data Agent",
     description=(
         "Collects Indian multi-modal logistics hub (MMLH / MMLP) data from public "
-        "websites and fills a 30-column master CSV template via Gemini structured output."
+        "websites and fills a 30-column master CSV template via Cursor SDK structured extraction."
     ),
     version="1.0.0",
 )
@@ -48,15 +48,12 @@ class SearchRequest(BaseModel):
 
 @app.get("/health")
 def health() -> dict[str, Any]:
-    model = os.getenv("GEMINI_MODEL") or DEFAULT_MODEL
+    model = os.getenv("CURSOR_MODEL") or DEFAULT_MODEL
     return {
         "status": "ok",
         "service": "india-logistics-data-agent",
         "model": model,
-        "gemini_api_key_configured": bool(
-            os.getenv("GEMINI_API_KEY", "").strip()
-            or os.getenv("GOOGLE_API_KEY", "").strip()
-        ),
+        "cursor_api_key_configured": bool(os.getenv("CURSOR_API_KEY", "").strip()),
         "output_csv": str(Path(pipeline.output_path)),
     }
 

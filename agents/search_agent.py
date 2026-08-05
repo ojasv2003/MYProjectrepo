@@ -1,4 +1,4 @@
-"""Search agent: find candidate source URLs via DuckDuckGo (no Gemini, no API key)."""
+"""Search agent: find candidate source URLs via DuckDuckGo (free, no API key / no LLM)."""
 
 from __future__ import annotations
 
