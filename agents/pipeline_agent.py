@@ -33,7 +33,11 @@ class PipelineAgent:
         model: str | None = None,
         output_path: str | Path | None = None,
     ) -> None:
-        self.api_key = api_key or os.getenv("GEMINI_API_KEY", "").strip()
+        self.api_key = (
+            api_key
+            or os.getenv("GEMINI_API_KEY", "").strip()
+            or os.getenv("GOOGLE_API_KEY", "").strip()
+        )
         self.model = (model or os.getenv("GEMINI_MODEL") or DEFAULT_MODEL).strip()
         self.output_path = Path(output_path or DEFAULT_OUTPUT)
         self._client: genai.Client | None = None
@@ -43,7 +47,8 @@ class PipelineAgent:
         if self._client is None:
             if not self.api_key:
                 raise RuntimeError(
-                    "GEMINI_API_KEY is not set. Copy .env.example to .env and add your key."
+                    "GEMINI_API_KEY is not set. Add it as a Cursor secret "
+                    "(or copy .env.example to .env) with your Google AI Studio key."
                 )
             self._client = genai.Client(api_key=self.api_key)
         return self._client

@@ -53,7 +53,10 @@ def health() -> dict[str, Any]:
         "status": "ok",
         "service": "india-logistics-data-agent",
         "model": model,
-        "gemini_api_key_configured": bool(os.getenv("GEMINI_API_KEY", "").strip()),
+        "gemini_api_key_configured": bool(
+            os.getenv("GEMINI_API_KEY", "").strip()
+            or os.getenv("GOOGLE_API_KEY", "").strip()
+        ),
         "output_csv": str(Path(pipeline.output_path)),
     }
 

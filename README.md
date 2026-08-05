@@ -49,13 +49,15 @@ python -m venv .venv
 # 2) Install dependencies
 pip install -r requirements.txt
 
-# 3) Configure Gemini
+# 3) Configure Gemini (Google AI Studio key)
 Copy-Item .env.example .env
-notepad .env   # set GEMINI_API_KEY=...
+notepad .env   # set GEMINI_API_KEY=... from https://aistudio.google.com/apikey
 
 # 4) Start the API
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+**Cursor Cloud Agents:** add a Secret named `GEMINI_API_KEY` (same Google AI Studio key). There is no separate “Cursor LLM key” for this stack — the pipeline reads `GEMINI_API_KEY` / `GOOGLE_API_KEY` from the environment.
 
 Open interactive docs at `http://127.0.0.1:8000/docs`.
 
@@ -113,7 +115,8 @@ Duplicates with the same **Hub_Name + Location** (case-insensitive) are skipped.
 
 | Variable | Required | Default | Purpose |
 | --- | --- | --- | --- |
-| `GEMINI_API_KEY` | Yes (for extract) | — | Google AI Studio / Gemini API key |
+| `GEMINI_API_KEY` | Yes (for extract) | — | Google AI Studio / Gemini API key (also via Cursor Secret) |
+| `GOOGLE_API_KEY` | No | — | Alias used if `GEMINI_API_KEY` is unset |
 | `GEMINI_MODEL` | No | `gemini-2.5-flash` | Model used for structured extraction |
 | `LOG_LEVEL` | No | `INFO` | Standard logging level |
 | `HOST` / `PORT` | No | `0.0.0.0` / `8000` | Used when launching via `python main.py` |

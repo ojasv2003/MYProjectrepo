@@ -105,8 +105,10 @@ class LogisticsHubRecord(BaseModel):
         default=None,
         description=(
             "Status / phase such as Proposed, Under Construction, Operational, "
-            "Commissioned, or Phase-1 / Phase-2. Also capture commissioning year "
-            "here if no separate field is available."
+            "Commissioned, or Phase-1 / Phase-2. Include commissioning / "
+            "commercial-operations year when stated (e.g. 'Operational; "
+            "commissioned 2024'). Also note page last-updated or data as-of date "
+            "if the source mentions one."
         ),
     )
     Connectivity_Modes: Optional[str] = Field(
@@ -179,8 +181,8 @@ class LogisticsHubRecord(BaseModel):
         default=None,
         description=(
             "Anchor industries or major cargo types (auto, steel, FMCG, pharma, "
-            "agriculture, e-commerce, containers, etc.). Also note operator/owner "
-            "consortium if mentioned (e.g. NHAI, CONCOR, private SPV)."
+            "agriculture, e-commerce, containers, etc.). Prefix with operator/"
+            "owner when known (e.g. 'Operator: NHLML / NHAI; anchors: auto, FMCG')."
         ),
     )
     Industry_Driving_Distance_KM: Optional[str] = Field(
@@ -213,7 +215,8 @@ class LogisticsHubRecord(BaseModel):
         default=None,
         description=(
             "Canonical source URL used for this extraction. Prefer the page URL "
-            "that was fetched."
+            "that was fetched. Optionally append '; as-of YYYY-MM-DD' when the "
+            "page states a last-updated or publication date."
         ),
     )
 
