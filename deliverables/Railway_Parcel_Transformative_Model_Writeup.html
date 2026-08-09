@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Railway Parcel Transformative Model — Write-up & Infographic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0b1f33;
+      --navy: #1f4e79;
+      --steel: #3d6f99;
+      --amber: #d9920f;
+      --amber-soft: #f3e2b8;
+      --paper: #f3f6f8;
+      --line: #c9d5e0;
+      --muted: #516579;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Source Sans 3", "Segoe UI", sans-serif;
+      line-height: 1.55;
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #dbe7f1 0%, transparent 55%),
+        radial-gradient(900px 420px at 100% 0%, #efe3c4 0%, transparent 45%),
+        linear-gradient(180deg, #e8eef3 0%, var(--paper) 35%, #eef2f5 100%);
+    }
+
+    .page {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 48px 28px 72px;
+    }
+
+    header.hero {
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 36px;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--navy);
+      font-weight: 700;
+      margin: 0 0 10px;
+    }
+
+    h1 {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      line-height: 1.15;
+      margin: 0 0 14px;
+      max-width: 16ch;
+      color: var(--ink);
+    }
+
+    .lede {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 58ch;
+      margin: 0;
+    }
+
+    h2 {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-weight: 400;
+      font-size: 1.65rem;
+      margin: 42px 0 12px;
+      color: var(--ink);
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      margin: 22px 0 8px;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+    }
+
+    p { margin: 0 0 14px; }
+
+    .callout {
+      margin: 22px 0;
+      padding: 18px 20px;
+      border-left: 4px solid var(--amber);
+      background: linear-gradient(90deg, #fff8e8, transparent);
+      color: var(--ink);
+    }
+
+    .infographic {
+      margin: 28px 0 8px;
+      width: 100%;
+      display: block;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .caption {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin: 8px 0 28px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 28px;
+      margin: 18px 0 8px;
+    }
+
+    .point strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .point p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .flow {
+      width: 100%;
+      margin: 20px 0 8px;
+      overflow-x: auto;
+    }
+
+    .flow svg { width: 100%; height: auto; display: block; }
+
+    ul.clean {
+      margin: 8px 0 16px;
+      padding-left: 1.15rem;
+    }
+
+    ul.clean li { margin-bottom: 8px; }
+
+    .hubspoke {
+      width: 100%;
+      margin: 18px 0 8px;
+    }
+
+    .hubspoke svg { width: 100%; height: auto; display: block; }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 0.86rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 700px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .page { padding: 28px 18px 48px; }
+      h1 { max-width: none; }
+    }
+
+    @media print {
+      body { background: white; }
+      .page { max-width: none; padding: 0; }
+      .infographic { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">Aviral Consulting · Logistics Strategy Note</p>
+      <h1>Railway Parcel: A Transformative Operating Model</h1>
+      <p class="lede">
+        Indian Railways is moving beyond incremental parcel improvements toward a
+        transformative model—one that can multiply parcel revenue and act as a
+        logistics enabler for <em>Viksit Bharat 2047</em>.
+      </p>
+    </header>
+
+    <section>
+      <h2>1. The Strategic Shift</h2>
+      <p>
+        The parcel segment has historically grown through piecemeal upgrades.
+        The next leap requires a different posture: treat parcel as a
+        productized, ecosystem-led logistics offering rather than a residual
+        capacity business attached to passenger trains.
+      </p>
+      <div class="callout">
+        <strong>Core principle:</strong> sharpen where Railways already creates
+        unmatched value—network control and middle-mile connectivity—while
+        partnering for non-core capabilities such as first-mile booking,
+        last-mile delivery, and specialized technology.
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Core Competency Focus</h2>
+      <p>
+        The transformative model asks Railways to excel in functional
+        competencies of the network and middle mile, and to orchestrate the
+        broader parcel ecosystem around that spine.
+      </p>
+      <div class="grid-2">
+        <div class="point">
+          <strong>Ecosystem Orchestration</strong>
+          <p>Coordinate multiple stakeholders so the network behaves as one reliable logistics system.</p>
+        </div>
+        <div class="point">
+          <strong>End-to-End Digital Integration</strong>
+          <p>Shared visibility, booking, and handoff data across rail, terminal, and LSP systems.</p>
+        </div>
+        <div class="point">
+          <strong>Innovation &amp; Product Development</strong>
+          <p>Parcel trains, VPU/SLR configurations, roll-cage products, and saleable service designs.</p>
+        </div>
+        <div class="point">
+          <strong>Partner for Non-Core Work</strong>
+          <p>Work with LSPs, tech providers, and specialists for customer-facing and edge operations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Infographic — Model at a Glance</h2>
+      <img
+        class="infographic"
+        src="railway_parcel_hub_spoke_infographic.png"
+        alt="Infographic of Railway Parcel Hub and Spoke transformative model"
+      />
+      <p class="caption">
+        Figure 1. Railways own the middle-mile network and ecosystem control;
+        logistics partners own customer-facing first and last mile.
+      </p>
+    </section>
+
+    <section>
+      <h2>4. The Integration Imperative</h2>
+      <p>
+        Today’s parcel value chain is fragmented. Rail operators optimize track
+        capacity and schedules; logistics providers chase door-to-door timelines;
+        shippers demand cost and reliability; terminal operators manage transfer
+        efficiency; technology vendors build tracking and automation. Each actor
+        is competent—but incentives and systems are not aligned.
+      </p>
+      <p>
+        That fragmentation is the single greatest barrier to seamless door-to-door
+        parcel solutions that can compete with integrated private networks.
+        Breaking silos requires shared technology platforms and aligned commercial
+        incentives, with Railways positioned to manage the network (line-haul)
+        and control the ecosystem.
+      </p>
+    </section>
+
+    <section>
+      <h2>5. Operating Schematic: First Mile → Rail → Last Mile</h2>
+      <p>
+        The commercial model separates customer-facing logistics work from the
+        rail spine, while keeping handoffs crisp at dedicated parcel interfaces.
+      </p>
+
+      <div class="flow" aria-label="Operating flow diagram">
+        <svg viewBox="0 0 920 280" xmlns="http://www.w3.org/2000/svg" role="img">
+          <defs>
+            <linearGradient id="railGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#1f4e79"/>
+              <stop offset="100%" stop-color="#0b1f33"/>
+            </linearGradient>
+          </defs>
+          <rect width="920" height="280" fill="#ffffff"/>
+          <text x="24" y="34" font-family="Source Sans 3, sans-serif" font-size="14" fill="#1f4e79" font-weight="700" letter-spacing="2">MODEL SCHEMATIC</text>
+
+          <!-- First mile -->
+          <rect x="24" y="60" width="160" height="150" rx="6" fill="#fff8e8" stroke="#d9920f" stroke-width="2"/>
+          <text x="104" y="88" text-anchor="middle" font-family="DM Serif Display, serif" font-size="18" fill="#0b1f33">First Mile</text>
+          <text x="104" y="118" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" fill="#516579">LSP / LSO</text>
+          <text x="104" y="142" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Customer facing</text>
+          <text x="104" y="160" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Booking &amp; revenue</text>
+          <text x="104" y="178" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Consolidation</text>
+
+          <!-- Terminal left -->
+          <rect x="214" y="78" width="120" height="114" rx="6" fill="#eaf1f7" stroke="#1f4e79" stroke-width="2"/>
+          <text x="274" y="108" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="13" font-weight="700" fill="#1f4e79">Terminal</text>
+          <text x="274" y="132" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Segregation</text>
+          <text x="274" y="150" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Load / unload</text>
+          <text x="274" y="168" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Push to rail</text>
+
+          <!-- Rail -->
+          <rect x="364" y="60" width="192" height="150" rx="6" fill="url(#railGrad)"/>
+          <text x="460" y="100" text-anchor="middle" font-family="DM Serif Display, serif" font-size="18" fill="#ffffff">Rail Network</text>
+          <text x="460" y="128" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" fill="#f3e2b8">Middle mile only</text>
+          <text x="460" y="150" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#ffffff">Parcel trains / VPU / SLR</text>
+          <text x="460" y="168" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#ffffff">Dedicated or shared</text>
+          <text x="460" y="186" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#ffffff">Rolling inventory</text>
+
+          <!-- Terminal right -->
+          <rect x="586" y="78" width="120" height="114" rx="6" fill="#eaf1f7" stroke="#1f4e79" stroke-width="2"/>
+          <text x="646" y="108" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="13" font-weight="700" fill="#1f4e79">Terminal</text>
+          <text x="646" y="132" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Receive from rail</text>
+          <text x="646" y="150" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Segregation</text>
+          <text x="646" y="168" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Transshipment</text>
+
+          <!-- Last mile -->
+          <rect x="736" y="60" width="160" height="150" rx="6" fill="#fff8e8" stroke="#d9920f" stroke-width="2"/>
+          <text x="816" y="88" text-anchor="middle" font-family="DM Serif Display, serif" font-size="18" fill="#0b1f33">Last Mile</text>
+          <text x="816" y="118" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" fill="#516579">Same LSP typically</text>
+          <text x="816" y="142" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Deconsolidation</text>
+          <text x="816" y="160" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Customer delivery</text>
+          <text x="816" y="178" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#0b1f33">Own infrastructure</text>
+
+          <!-- arrows -->
+          <path d="M184 135 H208" stroke="#1f4e79" stroke-width="2" marker-end="url(#arrow)"/>
+          <path d="M334 135 H358" stroke="#1f4e79" stroke-width="2"/>
+          <path d="M556 135 H580" stroke="#1f4e79" stroke-width="2"/>
+          <path d="M706 135 H730" stroke="#1f4e79" stroke-width="2"/>
+          <defs>
+            <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="#1f4e79"/>
+            </marker>
+          </defs>
+          <text x="460" y="250" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" fill="#516579">
+            Terminals earn activity-based revenue from LSPs · Rail focuses solely on middle-mile connectivity
+          </text>
+        </svg>
+      </div>
+      <p class="caption">Figure 2. Clear role split across the parcel chain, with Railways as the middle-mile backbone.</p>
+
+      <h3>Role summary</h3>
+      <ul class="clean">
+        <li><strong>Logistics Service Operator / Provider:</strong> owns customer interface, booking, consolidation and deconsolidation centers, and final delivery.</li>
+        <li><strong>Terminal Operator:</strong> connected rail-head operations—segregation, loading/unloading, receiving, and transshipment—on an activity-based revenue model.</li>
+        <li><strong>Rail Network:</strong> solely middle-mile connectivity using parcel trains / VPU / SLR / customized consists, including roll-cage operations for SLR.</li>
+      </ul>
+      <p>
+        Dedicated parcel terminals are required at key hub locations; spoke
+        locations can use dedicated parcel space within existing railway station
+        premises.
+      </p>
+    </section>
+
+    <section>
+      <h2>6. Hub &amp; Spoke Network Design</h2>
+      <p>
+        The network should mirror express-cargo practice: concentrate volume at
+        hubs, move hub-to-hub with zero intermediate touchpoints, and use
+        short-haul parcel trains for regional spoke distribution.
+      </p>
+
+      <div class="hubspoke" aria-label="Hub and spoke diagram">
+        <svg viewBox="0 0 920 360" xmlns="http://www.w3.org/2000/svg" role="img">
+          <rect width="920" height="360" fill="#ffffff"/>
+          <text x="24" y="34" font-family="Source Sans 3, sans-serif" font-size="14" fill="#1f4e79" font-weight="700" letter-spacing="2">HUB &amp; SPOKE OPERATIONS</text>
+
+          <!-- spokes -->
+          <line x1="460" y1="175" x2="180" y2="90" stroke="#c9d5e0" stroke-width="3"/>
+          <line x1="460" y1="175" x2="740" y2="90" stroke="#c9d5e0" stroke-width="3"/>
+          <line x1="460" y1="175" x2="200" y2="280" stroke="#c9d5e0" stroke-width="3"/>
+          <line x1="460" y1="175" x2="720" y2="280" stroke="#c9d5e0" stroke-width="3"/>
+          <line x1="180" y1="90" x2="740" y2="90" stroke="#d9920f" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="460" y="78" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" fill="#d9920f" font-weight="700">Hub-to-hub · zero intermediate touchpoints</text>
+
+          <!-- hub -->
+          <circle cx="460" cy="175" r="58" fill="#0b1f33"/>
+          <text x="460" y="168" text-anchor="middle" font-family="DM Serif Display, serif" font-size="22" fill="#ffffff">HUB</text>
+          <text x="460" y="190" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="#f3e2b8">Parcel Terminal</text>
+
+          <!-- spoke nodes -->
+          <circle cx="180" cy="90" r="34" fill="#fff8e8" stroke="#d9920f" stroke-width="2"/>
+          <text x="180" y="94" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700" fill="#0b1f33">Spoke</text>
+          <circle cx="740" cy="90" r="34" fill="#fff8e8" stroke="#d9920f" stroke-width="2"/>
+          <text x="740" y="94" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700" fill="#0b1f33">Spoke</text>
+          <circle cx="200" cy="280" r="34" fill="#eaf1f7" stroke="#1f4e79" stroke-width="2"/>
+          <text x="200" y="284" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700" fill="#0b1f33">Spoke</text>
+          <circle cx="720" cy="280" r="34" fill="#eaf1f7" stroke="#1f4e79" stroke-width="2"/>
+          <text x="720" y="284" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700" fill="#0b1f33">Spoke</text>
+
+          <text x="24" y="330" font-family="Source Sans 3, sans-serif" font-size="13" fill="#516579">
+            Upward flow → booking &amp; aggregation &nbsp;&nbsp;|&nbsp;&nbsp; Downward flow → delivery &amp; last-mile distribution
+          </text>
+        </svg>
+      </div>
+      <p class="caption">Figure 3. Dedicated hubs at load/consumption centers; spoke zones inside stations for regional access.</p>
+
+      <h3>Design rules</h3>
+      <ul class="clean">
+        <li>Establish dedicated parcel terminals (hubs) at key load-generation and consumption centers.</li>
+        <li>Run hub-to-hub moves with <strong>zero intermediate touchpoints</strong> for speed, reliability, and minimal handling.</li>
+        <li>Enable hub-to-spoke connectivity with short-haul parcel trains for faster regional distribution.</li>
+        <li>Spokes do not need full terminals—allocate dedicated parcel zones in existing stations from which LSPs move cargo to their own centers.</li>
+        <li>Design unidirectional volume logic: upward toward hubs for aggregation; downward toward spokes for delivery.</li>
+        <li>Terminal operators manage luggage/parcel booking and train connections under a revenue-share with Railways, using predefined size/weight limits for faster processing.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>7. Why This Model Matters</h2>
+      <p>
+        By concentrating Railways on network excellence and ecosystem control—
+        and letting specialist partners own customer-facing edges—the parcel
+        business can become both more reliable and more saleable. Shared digital
+        rails, clean commercial interfaces, and hub-and-spoke physical design
+        together convert fragmentation into a competitive door-to-door product.
+      </p>
+      <div class="callout">
+        <strong>Outcome ambition:</strong> a scalable parcel platform that multiplies
+        railway revenue while strengthening India’s multi-modal logistics backbone
+        on the path to Viksit Bharat 2047.
+      </div>
+    </section>
+
+    <footer>
+      <span>Based on: Presentation for chatgpt.pptx · Aviral Consulting</span>
+      <span>Private &amp; Confidential · Strategy write-up with infographic</span>
+    </footer>
+  </main>
+</body>
+</html>
