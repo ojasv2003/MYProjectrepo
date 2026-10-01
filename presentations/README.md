@@ -8,6 +8,10 @@ Open `supply-chain-under-uncertainty.html` in any modern browser (Chrome, Firefo
 
 **Navigation:** Arrow keys, Space, Page Up/Down, or on-screen controls. Swipe on touch devices.
 
+## Copy-paste slide text
+
+Use `supply-chain-slide-content.md` for plain, slide-by-slide titles, bullets, and stats ready to paste into PowerPoint, Google Slides, or Keynote.
+
 ## Slide outline
 
 1. **Title** — Supply Chains Under Uncertainty
