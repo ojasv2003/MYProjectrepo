@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supply Chains Under Uncertainty — 2026 Briefing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0c1a24;
+      --ink-soft: #1a2f3d;
+      --paper: #f2efe6;
+      --paper-dim: #e4dfd2;
+      --sea: #0e4d5c;
+      --sea-bright: #1a7a8c;
+      --signal: #c45c26;
+      --signal-soft: #e8a87c;
+      --mist: rgba(242, 239, 230, 0.08);
+      --line: rgba(12, 26, 36, 0.12);
+      --white: #faf8f3;
+      --muted: #5a6b75;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--ink);
+      color: var(--white);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      overflow: hidden;
+    }
+
+    .deck {
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 5vw, 4.5rem);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease, visibility 0.55s;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      z-index: 2;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(26, 122, 140, 0.28), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 90% 80%, rgba(196, 92, 38, 0.16), transparent 50%),
+        linear-gradient(160deg, #071018 0%, #0c1a24 45%, #122a36 100%);
+      z-index: -2;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(242, 239, 230, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(242, 239, 230, 0.035) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .kicker {
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--signal-soft);
+      margin-bottom: 0.85rem;
+      opacity: 0;
+      animation: none;
+    }
+
+    .slide.active .kicker,
+    .slide.active h1,
+    .slide.active h2,
+    .slide.active .lede,
+    .slide.active .grid,
+    .slide.active .stat-row,
+    .slide.active .footer-note,
+    .slide.active .bullets,
+    .slide.active .two-col,
+    .slide.active .cta-line {
+      animation: rise 0.7s ease forwards;
+    }
+
+    .slide.active h1 { animation-delay: 0.08s; }
+    .slide.active h2 { animation-delay: 0.08s; }
+    .slide.active .lede { animation-delay: 0.18s; }
+    .slide.active .grid,
+    .slide.active .stat-row,
+    .slide.active .bullets,
+    .slide.active .two-col { animation-delay: 0.28s; }
+    .slide.active .footer-note,
+    .slide.active .cta-line { animation-delay: 0.4s; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.4rem, 6.2vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+      max-width: 14ch;
+      opacity: 0;
+    }
+
+    h2 {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.85rem, 4vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      max-width: 22ch;
+      opacity: 0;
+    }
+
+    .lede {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      line-height: 1.45;
+      color: rgba(250, 248, 243, 0.82);
+      max-width: 42ch;
+      margin-top: 1.25rem;
+      opacity: 0;
+    }
+
+    .title-meta {
+      margin-top: auto;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(242, 239, 230, 0.15);
+      font-size: 0.9rem;
+      color: rgba(250, 248, 243, 0.65);
+      opacity: 0;
+    }
+
+    .slide.active .title-meta { animation: rise 0.7s ease 0.35s forwards; }
+
+    .title-meta strong {
+      color: var(--white);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .route-line {
+      position: absolute;
+      right: -5%;
+      top: 18%;
+      width: 55%;
+      height: 55%;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .route-line svg { width: 100%; height: 100%; }
+
+    .route-dash {
+      stroke-dasharray: 8 10;
+      animation: dash 18s linear infinite;
+    }
+
+    @keyframes dash {
+      to { stroke-dashoffset: -200; }
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      max-width: 1100px;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.1rem;
+      margin-top: 2rem;
+      opacity: 0;
+    }
+
+    .panel {
+      padding: 1.25rem 1.3rem 1.35rem;
+      border-left: 3px solid var(--sea-bright);
+      background: linear-gradient(135deg, rgba(26, 122, 140, 0.12), rgba(242, 239, 230, 0.03));
+    }
+
+    .panel.alert { border-left-color: var(--signal); }
+    .panel.soft { border-left-color: var(--paper-dim); }
+
+    .panel h3 {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+      letter-spacing: -0.01em;
+    }
+
+    .panel p {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: rgba(250, 248, 243, 0.75);
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.25rem;
+      opacity: 0;
+    }
+
+    .stat {
+      padding-top: 1rem;
+      border-top: 2px solid var(--signal);
+    }
+
+    .stat .num {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .stat .label {
+      margin-top: 0.55rem;
+      font-size: 0.88rem;
+      line-height: 1.35;
+      color: rgba(250, 248, 243, 0.7);
+    }
+
+    .bullets {
+      list-style: none;
+      margin-top: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      max-width: 58ch;
+      opacity: 0;
+    }
+
+    .bullets li {
+      position: relative;
+      padding-left: 1.35rem;
+      font-size: 1.02rem;
+      line-height: 1.45;
+      color: rgba(250, 248, 243, 0.85);
+    }
+
+    .bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 0.55rem;
+      height: 0.55rem;
+      background: var(--signal);
+      transform: rotate(45deg);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
+      margin-top: 1.75rem;
+      opacity: 0;
+      align-items: start;
+    }
+
+    @media (max-width: 800px) {
+      .two-col, .stat-row { grid-template-columns: 1fr; }
+      .route-line { display: none; }
+      h1 { max-width: 100%; }
+    }
+
+    .quote {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+      line-height: 1.4;
+      color: var(--paper);
+      border-left: 3px solid var(--sea-bright);
+      padding-left: 1.1rem;
+    }
+
+    .footer-note {
+      margin-top: auto;
+      padding-top: 1.5rem;
+      font-size: 0.78rem;
+      color: rgba(250, 248, 243, 0.45);
+      opacity: 0;
+    }
+
+    .cta-line {
+      margin-top: auto;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.2rem;
+      color: var(--signal-soft);
+      opacity: 0;
+    }
+
+    .nav {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.5rem;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(7, 16, 24, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(242, 239, 230, 0.12);
+      padding: 0.45rem 0.55rem;
+    }
+
+    .nav button {
+      background: transparent;
+      border: 1px solid rgba(242, 239, 230, 0.25);
+      color: var(--white);
+      width: 2.2rem;
+      height: 2.2rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .nav button:hover {
+      background: var(--sea);
+      border-color: var(--sea-bright);
+    }
+
+    .progress {
+      font-variant-numeric: tabular-nums;
+      font-size: 0.8rem;
+      color: rgba(250, 248, 243, 0.65);
+      min-width: 3.2rem;
+      text-align: center;
+    }
+
+    .dots {
+      position: fixed;
+      left: 1.5rem;
+      bottom: 1.5rem;
+      z-index: 20;
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .dots span {
+      width: 0.45rem;
+      height: 0.45rem;
+      background: rgba(242, 239, 230, 0.25);
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    .dots span.on {
+      background: var(--signal);
+      transform: scale(1.25);
+    }
+
+    .hint {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(250, 248, 243, 0.35);
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sea-bright);
+      margin-bottom: 0.35rem;
+    }
+
+    .title-slide h1 {
+      max-width: 16ch;
+      background: linear-gradient(120deg, #faf8f3 0%, #e8a87c 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .brand {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-weight: 800;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--signal-soft);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+    }
+
+    .slide.active .brand { animation: rise 0.7s ease forwards; }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+
+    <!-- 1. Title -->
+    <section class="slide title-slide active" data-slide="0">
+      <div class="route-line" aria-hidden="true">
+        <svg viewBox="0 0 500 400" fill="none">
+          <path class="route-dash" d="M20 280 C80 120, 160 80, 240 160 S380 300, 480 90" stroke="#1a7a8c" stroke-width="2" />
+          <circle cx="20" cy="280" r="6" fill="#c45c26" />
+          <circle cx="240" cy="160" r="5" fill="#e8a87c" />
+          <circle cx="480" cy="90" r="6" fill="#1a7a8c" />
+        </svg>
+      </div>
+      <div class="content">
+        <p class="brand">Global Trade Briefing</p>
+        <p class="kicker">October 2026</p>
+        <h1>Supply Chains Under Uncertainty</h1>
+        <p class="lede">How tariffs, conflict, and chokepoint disruption are rewriting the rules of global logistics — and what leaders are doing about it.</p>
+        <div class="title-meta">
+          <div><strong>Focus</strong> Current state &amp; strategic trends</div>
+          <div><strong>Context</strong> Trade policy · Geopolitics · Physical risk</div>
+          <div><strong>Audience</strong> Operators, planners &amp; executives</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Current state -->
+    <section class="slide" data-slide="1">
+      <div class="content">
+        <p class="kicker">01 — The landscape</p>
+        <h2>From fixed networks to constant motion</h2>
+        <p class="lede">Efficiency-first globalization is giving way to adaptive, higher-cost networks. Trade policy, geopolitical risk, and technology are now embedded in the cost of doing business.</p>
+        <div class="grid">
+          <div class="panel">
+            <h3>Resilience over lowest cost</h3>
+            <p>Boards now treat continuity and optionality as competitive assets — not temporary insurance after a shock.</p>
+          </div>
+          <div class="panel alert">
+            <h3>Policy as standing cost</h3>
+            <p>Tariffs and trade barriers are no longer a short-lived storm to wait out; they are structural inputs to sourcing math.</p>
+          </div>
+          <div class="panel soft">
+            <h3>Fragmented geography</h3>
+            <p>Multi-country footprints — Mexico, Vietnam, India, and beyond — replace single-source dependence on China.</p>
+          </div>
+        </div>
+        <p class="footer-note">Sources: KPMG Biannual Supply Chain Report (Mar 2026); DP World Global Trade Observatory 2026</p>
+      </div>
+    </section>
+
+    <!-- 3. Tariffs -->
+    <section class="slide" data-slide="2">
+      <div class="content">
+        <p class="kicker">02 — Tariffs &amp; trade wars</p>
+        <h2>Tariffs rewired sourcing — they did not end imports</h2>
+        <div class="stat-row">
+          <div class="stat">
+            <div class="num">−28%</div>
+            <div class="label">Drop in US imports from China in 2025 after renewed tariff escalation</div>
+          </div>
+          <div class="stat">
+            <div class="num">+9%</div>
+            <div class="label">Rise in US imports from the rest of the world in the same period</div>
+          </div>
+          <div class="stat">
+            <div class="num">~9%</div>
+            <div class="label">China’s share of US imports by end-2025 (down from ~22% pre-2018)</div>
+          </div>
+        </div>
+        <ul class="bullets">
+          <li>Electronics shifted fast to India and Vietnam; apparel often did not — tariff differentials were too small to force a move.</li>
+          <li>USMCA carve-outs remain a major mitigator; renegotiation risk could add several points to effective tariff rates.</li>
+          <li>Most firms still raise prices and delay capital projects rather than fully reshore overnight.</li>
+        </ul>
+        <p class="footer-note">Sources: PIIE Working Paper 26-14; KPMG 2026 Tariff Survey; Kearney 2026 Reshoring Index</p>
+      </div>
+    </section>
+
+    <!-- 4. Wars & geopolitics -->
+    <section class="slide" data-slide="3">
+      <div class="content">
+        <p class="kicker">03 — Wars &amp; geopolitics</p>
+        <h2>Conflict risk is no longer episodic</h2>
+        <div class="two-col">
+          <div>
+            <p class="quote">Geopolitical risk indices in 2025 reached levels not seen since 2022 — among the highest since the early 2000s wars.</p>
+            <ul class="bullets">
+              <li>Russia–Ukraine continues to scramble energy, grain, and industrial metals corridors.</li>
+              <li>Middle East tensions keep insurance premiums and route choices volatile.</li>
+              <li>Export controls and dual-use restrictions harden tech and critical-materials flows.</li>
+            </ul>
+          </div>
+          <div class="grid" style="margin-top:0; grid-template-columns:1fr;">
+            <div class="panel alert">
+              <span class="tag">Exposure</span>
+              <h3>Political distance ≠ supply safety</h3>
+              <p>“Friendly” assembly hubs often still depend on Chinese inputs — friendshoring can relocate risk rather than eliminate it.</p>
+            </div>
+            <div class="panel">
+              <span class="tag">Response</span>
+              <h3>Scenario planning is table stakes</h3>
+              <p>Leaders model tariff, conflict, and chokepoint scenarios together — not as separate risk silos.</p>
+            </div>
+          </div>
+        </div>
+        <p class="footer-note">Sources: KPMG Mar 2026; Economist Impact Trade in Transition 2025; Capgemini Reindustrialization 2025</p>
+      </div>
+    </section>
+
+    <!-- 5. Physical disruption -->
+    <section class="slide" data-slide="4">
+      <div class="content">
+        <p class="kicker">04 — Physical disruption</p>
+        <h2>Chokepoints still set the tempo of trade</h2>
+        <div class="grid">
+          <div class="panel alert">
+            <h3>Red Sea / Suez</h3>
+            <p>Attacks forced widespread Cape of Good Hope detours — adding roughly 7–12 days and large fuel and capacity penalties on Asia–Europe lanes.</p>
+          </div>
+          <div class="panel">
+            <h3>Panama Canal</h3>
+            <p>Drought and transit limits compressed capacity on Americas–Asia routes, amplifying backlog risk when other corridors strain.</p>
+          </div>
+          <div class="panel soft">
+            <h3>Freight &amp; capacity</h3>
+            <p>Rerouting cuts effective global capacity and lifts rates; disruption compounds tariff-driven demand shifts.</p>
+          </div>
+        </div>
+        <ul class="bullets">
+          <li>Contingency routing and multi-carrier contracts moved from “nice to have” to operating standard.</li>
+          <li>Inventory buffers rose again: executives cite stock builds alongside diversification as top 2026 moves.</li>
+        </ul>
+        <p class="footer-note">Sources: Container News; industry disruption briefings 2025–26; DP World GTO 2026</p>
+      </div>
+    </section>
+
+    <!-- 6. Strategic responses -->
+    <section class="slide" data-slide="5">
+      <div class="content">
+        <p class="kicker">05 — Strategic responses</p>
+        <h2>Four playbooks, one goal: optionality</h2>
+        <div class="grid">
+          <div class="panel">
+            <span class="tag">Diversify</span>
+            <h3>China + 1 / + N</h3>
+            <p>Keep China where it still wins on scale; add Vietnam, India, Mexico, and others for tariff and continuity hedges. Cited by ~51% of trade execs as a top 2026 shift.</p>
+          </div>
+          <div class="panel">
+            <span class="tag">Align</span>
+            <h3>Friendshoring</h3>
+            <p>~36% plan deeper ties with politically aligned partners — useful, but alliance labels shift with policy.</p>
+          </div>
+          <div class="panel">
+            <span class="tag">Regionalize</span>
+            <h3>Nearshoring</h3>
+            <p>Mexico remains pivotal for US-bound goods, yet tariff uncertainty and USMCA risk have cooled confidence for many.</p>
+          </div>
+          <div class="panel alert">
+            <span class="tag">Rebuild</span>
+            <h3>Reshoring</h3>
+            <p>Formal reshoring plans jumped (to ~26% in KPMG survey), but most say full moves take 1–3 years amid labor, capital, and tier-2 gaps.</p>
+          </div>
+        </div>
+        <p class="footer-note">Sources: DP World Global Trade Observatory 2026; Kearney Reshoring Index 2026; KPMG Tariff Survey 2026</p>
+      </div>
+    </section>
+
+    <!-- 7. Key trends -->
+    <section class="slide" data-slide="6">
+      <div class="content">
+        <p class="kicker">06 — What the data says</p>
+        <h2>Confidence in trade — with eyes wide open</h2>
+        <div class="stat-row">
+          <div class="stat">
+            <div class="num">94%</div>
+            <div class="label">of trade executives expect 2026 growth to match or beat 2025</div>
+          </div>
+          <div class="stat">
+            <div class="num">90%</div>
+            <div class="label">expect trade barriers to rise or stay elevated</div>
+          </div>
+          <div class="stat">
+            <div class="num">68%</div>
+            <div class="label">of firms delayed or postponed investments under tariff pressure</div>
+          </div>
+        </div>
+        <ul class="bullets">
+          <li>US manufacturing imports hit a four-year high despite record reshoring talk — tariffs redirected origins more than they eliminated import dependence.</li>
+          <li>Margin pressure is structural: price pass-through and selective inventory remain the common near-term tools.</li>
+          <li>Digital visibility, supplier mapping, and FTA-aware routing are rising as growth enablers, not only as risk tools.</li>
+        </ul>
+        <p class="footer-note">Sources: DP World GTO 2026; Kearney 2026; KPMG 2026 Tariff Survey</p>
+      </div>
+    </section>
+
+    <!-- 8. Implications -->
+    <section class="slide" data-slide="7">
+      <div class="content">
+        <p class="kicker">07 — Implications for leaders</p>
+        <h2>Design for disruption, not for calm</h2>
+        <div class="two-col">
+          <ul class="bullets" style="margin-top:0;">
+            <li><strong style="color:#fff;">Treat tariffs as a permanent planning variable</strong> — model rate paths, carve-outs, and retaliation in every sourcing case.</li>
+            <li><strong style="color:#fff;">Map multi-tier exposure</strong> — assembly outside China still fails if critical inputs and tooling do not.</li>
+            <li><strong style="color:#fff;">Invest in dual routes and dual suppliers</strong> — chokepoint and conflict risk will keep capacity lumpy.</li>
+            <li><strong style="color:#fff;">Prefer flexible capital</strong> — smaller, staged bets beat large irreversible bets while policy stays fluid.</li>
+            <li><strong style="color:#fff;">Make resilience a P&amp;L story</strong> — boards reward continuity that protects revenue, not only cost wins.</li>
+          </ul>
+          <div>
+            <p class="quote">The winners of this cycle will not be the cheapest networks — they will be the ones that can reconfigure fastest when the next shock lands.</p>
+            <p class="cta-line" style="margin-top:2rem;">Resilience is now a growth strategy.</p>
+          </div>
+        </div>
+        <p class="footer-note">Briefing synthesized from KPMG, PIIE, Kearney, DP World, Capgemini, and Economist Impact research, 2025–2026.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="dots" id="dots" aria-hidden="true"></div>
+  <div class="nav">
+    <button type="button" id="prev" aria-label="Previous slide">‹</button>
+    <span class="progress" id="progress">1 / 8</span>
+    <button type="button" id="next" aria-label="Next slide">›</button>
+  </div>
+  <p class="hint">Arrow keys · Space · Click buttons</p>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const progress = document.getElementById("progress");
+    const dots = document.getElementById("dots");
+    let i = 0;
+
+    slides.forEach((_, idx) => {
+      const d = document.createElement("span");
+      if (idx === 0) d.classList.add("on");
+      dots.appendChild(d);
+    });
+
+    function show(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, idx) => s.classList.toggle("active", idx === i));
+      [...dots.children].forEach((d, idx) => d.classList.toggle("on", idx === i));
+      progress.textContent = `${i + 1} / ${slides.length}`;
+    }
+
+    document.getElementById("next").addEventListener("click", () => show(i + 1));
+    document.getElementById("prev").addEventListener("click", () => show(i - 1));
+
+    document.addEventListener("keydown", (e) => {
+      if (["ArrowRight", "ArrowDown", " ", "PageDown"].includes(e.key)) {
+        e.preventDefault();
+        show(i + 1);
+      } else if (["ArrowLeft", "ArrowUp", "PageUp"].includes(e.key)) {
+        e.preventDefault();
+        show(i - 1);
+      } else if (e.key === "Home") {
+        show(0);
+      } else if (e.key === "End") {
+        show(slides.length - 1);
+      }
+    });
+
+    let touchX = null;
+    document.addEventListener("touchstart", (e) => { touchX = e.changedTouches[0].screenX; }, { passive: true });
+    document.addEventListener("touchend", (e) => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].screenX - touchX;
+      if (Math.abs(dx) > 50) show(i + (dx < 0 ? 1 : -1));
+      touchX = null;
+    }, { passive: true });
+  </script>
+</body>
+</html>
