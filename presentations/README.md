@@ -8,6 +8,18 @@ Open `supply-chain-under-uncertainty.html` in any modern browser (Chrome, Firefo
 
 **Navigation:** Arrow keys, Space, Page Up/Down, or on-screen controls. Swipe on touch devices.
 
+## Download PowerPoint
+
+**File:** [`Supply_Chains_Under_Uncertainty.pptx`](./Supply_Chains_Under_Uncertainty.pptx)
+
+Widescreen (16:9), 8 slides. Open in PowerPoint, Google Slides, or Keynote.
+
+To regenerate after edits:
+
+```bash
+python3 presentations/build_pptx.py
+```
+
 ## Copy-paste slide text
 
 Use `supply-chain-slide-content.md` for plain, slide-by-slide titles, bullets, and stats ready to paste into PowerPoint, Google Slides, or Keynote.
